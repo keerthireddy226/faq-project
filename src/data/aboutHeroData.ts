@@ -36,6 +36,6 @@ export const learningTechnologyHeroData = {
     "Fortune 500 Enterprise Experience",
   ],
   primaryCta: { label: "Schedule a Consultation", href: "#" },
-  secondaryCta: { label: "Explore Our Services", href: "#" },
+  // secondaryCta: { label: "Explore Our Services", href: "#" },
   image: { src: "/learningstrategy.webp", alt: "Learning Technology Consulting" },
 };

@@ -17,8 +17,10 @@ interface HeroBannerProps {
   headingMain: string;
   description: string;
   bullets: string[];
-  primaryCta: Cta;
-  secondaryCta: Cta;
+  // primaryCta: Cta;
+  primaryCta?: Cta;
+  // secondaryCta: Cta;
+  secondaryCta?: Cta;
   image: {
     src: string;
     alt: string;
@@ -82,19 +84,23 @@ export default function HeroBanner({
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-4">
-            <Link
-              href={primaryCta.href}
-              className="bg-[#c8e130] hover:bg-[#b8d020] text-[#22295a] text-sm font-semibold px-6 py-3 rounded-lg transition-colors"
-            >
-              {primaryCta.label}
-            </Link>
+            {primaryCta && (
+              <Link
+                href={primaryCta.href}
+                className="bg-[#c8e130] hover:bg-[#b8d020] text-[#22295a] text-sm font-semibold px-6 py-3 rounded-lg transition-colors"
+              >
+                {primaryCta.label}
+              </Link>
+            )}
 
-            <Link
-              href={secondaryCta.href}
-              className="border border-white text-white text-sm font-semibold px-6 py-3 rounded-lg transition-colors hover:bg-white/10"
-            >
-              {secondaryCta.label} ↓
-            </Link>
+            {secondaryCta && (
+              <Link
+                href={secondaryCta.href}
+                className="border border-white text-white text-sm font-semibold px-6 py-3 rounded-lg transition-colors hover:bg-white/10"
+              >
+                {secondaryCta.label} ↓
+              </Link>
+            )}
           </div>
 
         </div>
