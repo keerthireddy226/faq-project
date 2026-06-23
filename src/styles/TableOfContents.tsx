@@ -41,21 +41,31 @@ export default function TableOfContents() {
   if (!headings.length) return null;
 
   return (
-    <aside className="sticky top-24 border rounded-xl p-5 bg-white">
-      <h3 className="font-bold mb-4">Table of Contents</h3>
+    <aside className="toc-wrapper sticky top-24 self-start w-[200px] min-w-[200px] h-[80vh] overflow-y-auto">
+      <h3 className="text-[#1B40A9] mb-5 text-[18px] font-medium leading-5">
+        Content
+      </h3>
 
-      <ul className="space-y-2">
+      <nav>
         {headings.map((item) => (
-          <li
+          <a
             key={item.id}
-            className={item.level === "h3" ? "ml-4 text-sm" : ""}
+            href={`#${item.id}`}
+            className={`
+        block px-2 py-[5px]
+        text-[12px] leading-4
+        text-[#1d1d1d]
+        border-l-2 border-transparent
+        hover:bg-[rgba(41,98,255,0.1)]
+        hover:border-l-black
+        transition-all
+        ${item.level === "h3" ? "ml-3" : ""}
+      `}
           >
-            <a href={`#${item.id}`} className="text-[#2D3BC8] hover:underline">
-              {item.text}
-            </a>
-          </li>
+            {item.text}
+          </a>
         ))}
-      </ul>
+      </nav>
     </aside>
   );
 }

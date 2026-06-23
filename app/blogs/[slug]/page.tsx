@@ -1,6 +1,10 @@
 import "../../../src/styles/blog-content.css";
 import "../../../src/styles/coroprate-companies.css";
 import "../../../src/styles/faq-code.css";
+import "../../../src/styles/inDemandSkills.css";
+
+import Image from "next/image";
+import { ExternalLink } from "lucide-react";
 import BlogFaqScript from "../../../src/components/blog/BlogFaqScript";
 import TableOfContents from "@/src/styles/TableOfContents";
 
@@ -42,110 +46,104 @@ export default async function BlogPage({ params }: BlogPageProps) {
     blog["primary-keyword"] ||
     "";
 
-  const description =
-    blog.description ||
-    blog["meta-description"] ||
-    blog["short-description"] ||
-    "";
-
   const authorName =
     blog.author?.name || blog.authorName || blog["author-name"] || "";
 
   const authorAvatar =
-    blog.author?.avatar || blog.authorImage || blog["author-image"] || "";
+    blog.author?.avatar?.url ||
+    blog.author?.avatar ||
+    blog.authorImage?.url ||
+    blog.authorImage ||
+    blog["author-image"]?.url ||
+    blog["author-image"] ||
+    "";
 
   const updatedOn =
     blog.author?.updatedOn ||
     blog.updatedDate ||
     blog["post-published-date"] ||
+    blog["updated-on"] ||
     "";
 
   const readTime = blog.readTime || blog["read-time"] || "";
 
-  const showWhatsNew = blog.whatsNew || blog.whatsNewSection || false;
+  const badgeText =
+    blog.badgeText || blog["badge-text"] || "What’s new in this article";
 
   const content =
     blog.content ||
     blog.content2 ||
     blog["post-body"] ||
     blog["blog-content"] ||
+    blog["main-content"] ||
     "";
 
   return (
     <>
-      <main
-        className="relative min-h-[620px] flex items-center justify-center overflow-hidden text-white"
+      <section
+        className="relative overflow-hidden bg-cover bg-center bg-no-repeat text-white py-28"
         style={{
           backgroundImage:
             "url('https://cdn.prod.website-files.com/6482a3cf7db698c2a80cc5e6/672af632823a23f66a00034a_Rectangle%2028584.svg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="relative z-10 text-center px-6 py-24 max-w-5xl mx-auto">
+        <div className="relative z-10 mx-auto max-w-5xl text-center px-6">
           {category && (
-            <span className="inline-block bg-white/15 text-white text-sm font-semibold px-5 py-2 rounded-full mb-7">
+            <span className="inline-flex rounded-full bg-white/15 px-5 py-2 text-sm font-semibold">
               {category}
             </span>
           )}
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] mb-8">
+          <h1 className="mx-auto mt-8 max-w-[900px] text-center text-white text-3xl md:text-6xl font-bold leading-tight mb-5">
             {title}
           </h1>
 
-          {description && (
-            <p className="text-lg md:text-xl leading-8 text-white/85 max-w-4xl mx-auto mb-10">
-              {description}
-            </p>
-          )}
-
-          <div className="h-px bg-white/15 max-w-3xl mx-auto mb-8"></div>
-
-          <div className="flex flex-col items-center justify-center gap-4">
+          <div className="mx-auto mt-12 max-w-2xl border-y border-white/10 py-6">
             <div className="flex items-center justify-center gap-4">
               {authorAvatar && (
-                <img
+                <Image
                   src={authorAvatar}
-                  alt={authorName || title}
-                  className="w-14 h-14 rounded-full object-cover border-2 border-white/30"
+                  alt={authorName || "Author"}
+                  width={56}
+                  height={56}
+                  className="rounded-full"
                 />
               )}
 
               <div className="text-left">
                 {authorName && (
-                  <p className="text-lg font-medium">by {authorName}</p>
+                  <p className="text-base">
+                    by <span className="font-medium">{authorName}</span>
+                  </p>
                 )}
 
                 {updatedOn && (
-                  <p className="text-sm text-white/70">
+                  <p className="mt-1 text-sm font-medium">
                     Updated On {updatedOn}
                   </p>
                 )}
               </div>
             </div>
 
-            {showWhatsNew && (
-              <div className="inline-flex items-center gap-2 text-sm text-white/80">
-                <span className="w-2 h-2 rounded-full bg-[#c8e130]"></span>
-                What&apos;s New
-              </div>
-            )}
-
-            {readTime && (
-              <div className="flex items-center justify-center gap-4 text-white/80 text-sm mt-2 w-full max-w-xl">
-                <span className="flex-1 h-px bg-white/15"></span>
-                {readTime}
-                <span className="flex-1 h-px bg-white/15"></span>
-              </div>
-            )}
+            {readTime && <p className="mt-6 text-sm">{readTime}</p>}
           </div>
+
+          {badgeText && (
+            <div className="mt-6 flex items-center justify-center gap-3">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#BFDB38]/30">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#BFDB38]" />
+              </span>
+
+              <span className="text-sm font-medium">{badgeText}</span>
+              <ExternalLink className="h-4 w-4" />
+            </div>
+          )}
         </div>
-      </main>
+      </section>
 
       {content && (
         <section className="bg-white py-12">
-          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[280px_1fr] gap-12">
+          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[220px_1fr] gap-4">
             <div className="hidden lg:block">
               <TableOfContents />
             </div>

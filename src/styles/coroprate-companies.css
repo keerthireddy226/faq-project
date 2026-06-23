@@ -137,7 +137,7 @@ tr:nth-child(even) {
 
 .co-hdr h3,
 .co-hdr p {
-  margin: 0;
+  margin: 0 !important;
 }
 
 .co-card > p:last-of-type {
@@ -188,6 +188,7 @@ tr:nth-child(even) {
   padding-left: 20px;
   margin-bottom: 12px;
   margin-top: 10px;
+  list-style: disc;
 }
 
 .co-card li {
@@ -287,7 +288,9 @@ tr:nth-child(even) {
   text-align: center;
   align-items: center;
 }
-
+.cta h3 {
+  color: black;
+}
 .cta.bg-green {
   background: linear-gradient(0, #22295a, #264cbe);
 }
