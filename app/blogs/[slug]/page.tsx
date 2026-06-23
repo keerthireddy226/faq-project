@@ -1,38 +1,24 @@
 import "../../../src/styles/blog-content.css";
+import "../../../src/styles/coroprate-companies.css";
+import "../../../src/styles/faq-code.css";
 import BlogFaqScript from "../../../src/components/blog/BlogFaqScript";
+import TableOfContents from "@/src/styles/TableOfContents";
 
-interface Blog {
-  slug: string;
-  // old format
-  title?: string;
-  category?: string;
-  author?: { name: string; avatar: string; updatedOn: string };
-  readTime?: string;
-  whatsNew?: boolean;
-  description?: string;
-  // new format
-  name?: string;
-  authorName?: string;
-  authorImage?: string;
-  updatedDate?: string;
-  whatsNewSection?: boolean;
-  coverImage?: string;
-  coverPhoto?: string;
-  content?: string;
-}
+type BlogPageProps = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
 
-export default async function BlogPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function BlogPage({ params }: BlogPageProps) {
   const { slug } = await params;
 
-  const res = await fetch(`http://localhost:3000/api/blogs/${slug}`, {
-    cache: "no-store",
-  });
-
-  const blog: Blog = await res.json();
+  const res = await fetch(
+    `https://webflow-blog-api.vercel.app/api/blogs/${slug}`,
+    {
+      cache: "no-store",
+    },
+  );
 
   if (!res.ok) {
     return (
@@ -40,125 +26,139 @@ export default async function BlogPage({
         <div className="text-center text-white">
           <h1 className="text-6xl font-bold mb-4">404</h1>
           <p className="text-white/70">Blog not found</p>
+          <p className="text-white/70">Slug: {slug}</p>
         </div>
       </main>
     );
   }
 
-  // Normalise fields across old and new format
+  const response = await res.json();
+  const blog = response.fieldData || response.blog?.fieldData || response;
+
   const title = blog.title || blog.name || "";
-  const authorName = blog.author?.name || blog.authorName || "";
-  const authorAvatar = blog.author?.avatar || blog.authorImage || "";
-  const updatedOn = blog.author?.updatedOn || blog.updatedDate || "";
+  const category =
+    blog.category ||
+    blog.newFormatBlogsSections ||
+    blog["primary-keyword"] ||
+    "";
+
+  const description =
+    blog.description ||
+    blog["meta-description"] ||
+    blog["short-description"] ||
+    "";
+
+  const authorName =
+    blog.author?.name || blog.authorName || blog["author-name"] || "";
+
+  const authorAvatar =
+    blog.author?.avatar || blog.authorImage || blog["author-image"] || "";
+
+  const updatedOn =
+    blog.author?.updatedOn ||
+    blog.updatedDate ||
+    blog["post-published-date"] ||
+    "";
+
+  const readTime = blog.readTime || blog["read-time"] || "";
+
   const showWhatsNew = blog.whatsNew || blog.whatsNewSection || false;
+
+  const content =
+    blog.content ||
+    blog.content2 ||
+    blog["post-body"] ||
+    blog["blog-content"] ||
+    "";
 
   return (
     <>
-      {/* Hero */}
-      <main className="relative min-h-[420px] flex items-center justify-center overflow-hidden bg-gradient-to-r from-[#2D3BC8] to-[#5B4FD4]">
+      <main
+        className="relative min-h-[620px] flex items-center justify-center overflow-hidden text-white"
+        style={{
+          backgroundImage:
+            "url('https://cdn.prod.website-files.com/6482a3cf7db698c2a80cc5e6/672af632823a23f66a00034a_Rectangle%2028584.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="relative z-10 text-center px-6 py-24 max-w-5xl mx-auto">
+          {category && (
+            <span className="inline-block bg-white/15 text-white text-sm font-semibold px-5 py-2 rounded-full mb-7">
+              {category}
+            </span>
+          )}
 
-        {/* Concentric circles — left */}
-        <div className="absolute -left-32 top-1/2 -translate-y-1/2 pointer-events-none">
-          {[320, 260, 200, 140].map((size) => (
-            <div
-              key={size}
-              className="absolute rounded-full border border-white/10"
-              style={{
-                width: size,
-                height: size,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Concentric circles — right */}
-        <div className="absolute -right-32 top-1/2 -translate-y-1/2 pointer-events-none">
-          {[320, 260, 200, 140].map((size) => (
-            <div
-              key={size}
-              className="absolute rounded-full border border-white/10"
-              style={{
-                width: size,
-                height: size,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 text-center text-white px-6 py-20 max-w-3xl mx-auto">
-
-          {/* Category badge */}
-          <span className="inline-block bg-white/15 text-white text-xs font-medium px-4 py-1.5 rounded-full mb-6">
-            {blog.category}
-          </span>
-
-          {/* Title */}
-          <h1 className="text-3xl lg:text-5xl font-bold leading-tight mb-8">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] mb-8">
             {title}
           </h1>
 
-          {/* Author */}
-          <div className="flex items-center justify-center gap-3 mb-4">
-            {authorAvatar && (
-              <img
-                src={authorAvatar}
-                alt={authorName}
-                className="w-11 h-11 rounded-full object-cover"
-              />
-            )}
-            <div className="text-left">
-              <p className="text-sm font-medium">by {authorName}</p>
-              {updatedOn && (
-                <p className="text-xs text-white/60">Updated On {updatedOn}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Read time */}
-          <div className="flex items-center justify-center gap-3 text-white/60 text-sm mb-5">
-            <span className="flex-1 max-w-[80px] h-px bg-white/20"></span>
-            {blog.readTime}
-            <span className="flex-1 max-w-[80px] h-px bg-white/20"></span>
-          </div>
-
-          {/* What's New tag */}
-          {showWhatsNew && (
-            <div className="inline-flex items-center gap-2 text-sm text-white/80">
-              <span className="w-2 h-2 rounded-full bg-[#c8e130]"></span>
-              What&apos;s New
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </div>
+          {description && (
+            <p className="text-lg md:text-xl leading-8 text-white/85 max-w-4xl mx-auto mb-10">
+              {description}
+            </p>
           )}
 
+          <div className="h-px bg-white/15 max-w-3xl mx-auto mb-8"></div>
+
+          <div className="flex flex-col items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-4">
+              {authorAvatar && (
+                <img
+                  src={authorAvatar}
+                  alt={authorName || title}
+                  className="w-14 h-14 rounded-full object-cover border-2 border-white/30"
+                />
+              )}
+
+              <div className="text-left">
+                {authorName && (
+                  <p className="text-lg font-medium">by {authorName}</p>
+                )}
+
+                {updatedOn && (
+                  <p className="text-sm text-white/70">
+                    Updated On {updatedOn}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {showWhatsNew && (
+              <div className="inline-flex items-center gap-2 text-sm text-white/80">
+                <span className="w-2 h-2 rounded-full bg-[#c8e130]"></span>
+                What&apos;s New
+              </div>
+            )}
+
+            {readTime && (
+              <div className="flex items-center justify-center gap-4 text-white/80 text-sm mt-2 w-full max-w-xl">
+                <span className="flex-1 h-px bg-white/15"></span>
+                {readTime}
+                <span className="flex-1 h-px bg-white/15"></span>
+              </div>
+            )}
+          </div>
         </div>
       </main>
 
-      {/* Content body — only for blogs with content field */}
-      {blog.content && (
-        <section className="bg-white text-black">
-          {/* {(blog.coverImage || blog.coverPhoto) && (
-            <div className="max-w-4xl mx-auto px-6 pt-10">
-              <img
-                src={blog.coverImage || blog.coverPhoto}
-                alt={title}
-                className="w-full rounded-xl object-cover"
-              />
+      {content && (
+        <section className="bg-white py-12">
+          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[280px_1fr] gap-12">
+            <div className="hidden lg:block">
+              <TableOfContents />
             </div>
-          )} */}
-          <div
-            className="blog-content max-w-4xl mx-auto px-6 py-12"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
-          ></div>
-          <BlogFaqScript />
+
+            <div
+              className="blog-content max-w-4xl"
+              dangerouslySetInnerHTML={{
+                __html: content,
+              }}
+            />
+
+            <BlogFaqScript />
+          </div>
         </section>
       )}
     </>
