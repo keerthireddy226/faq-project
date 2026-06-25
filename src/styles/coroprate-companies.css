@@ -112,7 +112,20 @@ tr:nth-child(even) {
     -webkit-overflow-scrolling: touch;
   }
 }
-
+.blog-content p,
+.blog-content div,
+.blog-content span,
+.blog-content li,
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+  overflow-wrap: break-word;
+  word-break: normal;
+  white-space: normal;
+}
 /* Company card logos styles */
 .co-card {
   background-color: #fff;

@@ -2,11 +2,15 @@ import "../../../src/styles/blog-content.css";
 import "../../../src/styles/coroprate-companies.css";
 import "../../../src/styles/faq-code.css";
 import "../../../src/styles/inDemandSkills.css";
+import TrainingCard from "@/src/components/blog/TrainingCard";
 
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import BlogFaqScript from "../../../src/components/blog/BlogFaqScript";
 import TableOfContents from "@/src/styles/TableOfContents";
+import TrainingCatalogCTA from "@/src/components/blog/TrainingCatalogCTA";
+import BlogTrainingCTA from "@/src/components/blog/BlogTrainingCTA";
+import CoachingCTA from "@/src/components/blog/CoachingCTA";
 
 type BlogPageProps = {
   params: Promise<{
@@ -14,11 +18,20 @@ type BlogPageProps = {
   }>;
 };
 
+function decodeHtml(html: string) {
+  return html
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
+}
+
 export default async function BlogPage({ params }: BlogPageProps) {
   const { slug } = await params;
 
   const res = await fetch(
-    `https://webflow-blog-api.vercel.app/api/blogs/${slug}`,
+    `http://187.127.140.202:8081/api/v2/resources/blog/${slug}`,
     {
       cache: "no-store",
     },
@@ -37,46 +50,22 @@ export default async function BlogPage({ params }: BlogPageProps) {
   }
 
   const response = await res.json();
-  const blog = response.fieldData || response.blog?.fieldData || response;
+  const blog = response.resource;
 
-  const title = blog.title || blog.name || "";
-  const category =
-    blog.category ||
-    blog.newFormatBlogsSections ||
-    blog["primary-keyword"] ||
-    "";
+  const title = blog.title || "";
+  const desc = blog.excerpt || blog.seo?.meta_description || "";
+  const category = blog.categories?.[0]?.name || "";
+  const authorName = blog.presenter?.name || blog.presenter_name || "";
+  const authorAvatar = blog.presenter?.image_url || "";
+  const updatedOn = blog.published_at || "";
 
-  const authorName =
-    blog.author?.name || blog.authorName || blog["author-name"] || "";
+  const readTime = blog.read_time_minutes
+    ? `${blog.read_time_minutes} min read`
+    : "";
 
-  const authorAvatar =
-    blog.author?.avatar?.url ||
-    blog.author?.avatar ||
-    blog.authorImage?.url ||
-    blog.authorImage ||
-    blog["author-image"]?.url ||
-    blog["author-image"] ||
-    "";
+  const badgeText = "What’s new in this article";
 
-  const updatedOn =
-    blog.author?.updatedOn ||
-    blog.updatedDate ||
-    blog["post-published-date"] ||
-    blog["updated-on"] ||
-    "";
-
-  const readTime = blog.readTime || blog["read-time"] || "";
-
-  const badgeText =
-    blog.badgeText || blog["badge-text"] || "What’s new in this article";
-
-  const content =
-    blog.content ||
-    blog.content2 ||
-    blog["post-body"] ||
-    blog["blog-content"] ||
-    blog["main-content"] ||
-    "";
+  const content = decodeHtml(blog.body_html || "");
 
   return (
     <>
@@ -94,9 +83,11 @@ export default async function BlogPage({ params }: BlogPageProps) {
             </span>
           )}
 
-          <h1 className="mx-auto mt-8 max-w-[900px] text-center text-white text-3xl md:text-6xl font-bold leading-tight mb-5">
+          <h1 className="mx-auto mt-6 max-w-[900px] text-center text-white text-5xl font-bold leading-tight mb-4">
             {title}
           </h1>
+
+          <p className="max-w-[900px]">{desc}</p>
 
           <div className="mx-auto mt-12 max-w-2xl border-y border-white/10 py-6">
             <div className="flex items-center justify-center gap-4">
@@ -143,20 +134,30 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
       {content && (
         <section className="bg-white py-12">
-          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[220px_1fr] gap-4">
+          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[200px_minmax(0,1fr)_270px] gap-4">
             <div className="hidden lg:block">
               <TableOfContents />
             </div>
 
             <div
-              className="blog-content max-w-4xl"
+              className="blog-content min-w-0 overflow-hidden"
               dangerouslySetInnerHTML={{
                 __html: content,
               }}
             />
 
-            <BlogFaqScript />
+            <div className="hidden lg:block disply-flex gap-2">
+              <TrainingCard />
+              <br />
+              <TrainingCatalogCTA />
+              <br />
+              <BlogTrainingCTA />
+              <br />
+              <CoachingCTA />
+            </div>
           </div>
+
+          <BlogFaqScript />
         </section>
       )}
     </>
