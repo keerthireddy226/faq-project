@@ -53,8 +53,8 @@ export default function TrainingCard() {
                       y2="29"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop stop-color="#979BEE"></stop>
-                      <stop offset="1" stop-color="#215AFF"></stop>
+                      <stop stopColor="#979BEE"></stop>
+                      <stop offset="1" stopColor="#215AFF"></stop>
                     </linearGradient>
                   </defs>
                 </svg>
