@@ -3,14 +3,14 @@ import Link from "next/link";
 export default function CoachingCTA() {
   return (
     <div
-      className="flex flex-col items-center justify-center rounded-[10px] bg-cover bg-center px-5 pt-6 pb-[220px]"
+      className="flex flex-col items-start justify-end rounded-[10px] bg-cover bg-center px-5 pt-[24px] pb-[200px]"
       style={{
         backgroundImage:
           "url('https://cdn.prod.website-files.com/6482a3cf7db698c2a80cc5e6/68eccc88ae455a603ca80de0_Group%201000005608%20(1).webp')",
       }}
     >
       <div className="flex flex-col items-stretch">
-        <h3 className="mb-[10px] text-[28px] font-bold leading-[36px] text-white">
+        <h3 className="mb-[10px] text-[24px] font-bold leading-[32px] text-white">
           Coaching that Unlocks Potential
         </h3>
 

@@ -165,9 +165,10 @@ export default async function BlogPage({ params }: BlogPageProps) {
               <br />
               <TrainingCatalogCTA />
               <br />
+              <CoachingCTA />
+              <br />
               <BlogTrainingCTA />
               <br />
-              <CoachingCTA />
             </div>
           </div>
 
