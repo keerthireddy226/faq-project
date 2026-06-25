@@ -8,6 +8,7 @@ const navItems = [
   { label: "Consulting" },
   { label: "Company" },
   { label: "Resources" },
+  { label: "Blog", href: "/blogs/quality-management-tools" },
 ];
 
 export default function Header() {
@@ -23,7 +24,15 @@ export default function Header() {
         {/* Nav */}
 <nav className="hidden lg:flex items-center gap-1">
   {navItems.map((item) =>
-    item.label === "Training Programs" ? (
+    item.href ? (
+      <Link
+        key={item.label}
+        href={item.href}
+        className="px-3 py-2 text-sm text-gray-700 hover:text-blue-600 transition-colors rounded-md hover:bg-gray-50"
+      >
+        {item.label}
+      </Link>
+    ) : item.label === "Training Programs" ? (
       <div key={item.label} className="relative group">
         <button className="flex items-center gap-1 px-3 py-2 text-sm text-gray-700 hover:text-blue-600 transition-colors rounded-md hover:bg-gray-50">
           {item.label}
