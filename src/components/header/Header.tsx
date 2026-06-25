@@ -8,7 +8,7 @@ const navItems = [
   { label: "Consulting" },
   { label: "Company" },
   { label: "Resources" },
-  { label: "Blog", href: "/blogs/quality-management-tools" },
+  { label: "Blog", href: "/blogs/leadership-training-companies-saudi-arabia" },
 ];
 
 export default function Header() {
