@@ -18,20 +18,11 @@ type BlogPageProps = {
   }>;
 };
 
-function decodeHtml(html: string) {
-  return html
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, "&");
-}
-
 export default async function BlogPage({ params }: BlogPageProps) {
   const { slug } = await params;
 
   const res = await fetch(
-    `http://187.127.140.202:8081/api/v2/resources/blog/${slug}`,
+    `https://webflow-blog-api.vercel.app/api/blogs/${slug}`,
     {
       cache: "no-store",
     },
@@ -50,22 +41,47 @@ export default async function BlogPage({ params }: BlogPageProps) {
   }
 
   const response = await res.json();
-  const blog = response.resource;
+  const blog = response.fieldData || response.blog?.fieldData || response;
 
-  const title = blog.title || "";
-  const desc = blog.excerpt || blog.seo?.meta_description || "";
-  const category = blog.categories?.[0]?.name || "";
-  const authorName = blog.presenter?.name || blog.presenter_name || "";
-  const authorAvatar = blog.presenter?.image_url || "";
-  const updatedOn = blog.published_at || "";
+  const title = blog.title || blog.name || "";
+  const desc = blog.description;
+  const category =
+    blog.category ||
+    blog.newFormatBlogsSections ||
+    blog["primary-keyword"] ||
+    "";
 
-  const readTime = blog.read_time_minutes
-    ? `${blog.read_time_minutes} min read`
-    : "";
+  const authorName =
+    blog.author?.name || blog.authorName || blog["author-name"] || "";
 
-  const badgeText = "What’s new in this article";
+  const authorAvatar =
+    blog.author?.avatar?.url ||
+    blog.author?.avatar ||
+    blog.authorImage?.url ||
+    blog.authorImage ||
+    blog["author-image"]?.url ||
+    blog["author-image"] ||
+    "";
 
-  const content = decodeHtml(blog.body_html || "");
+  const updatedOn =
+    blog.author?.updatedOn ||
+    blog.updatedDate ||
+    blog["post-published-date"] ||
+    blog["updated-on"] ||
+    "";
+
+  const readTime = blog.readTime || blog["read-time"] || "";
+
+  const badgeText =
+    blog.badgeText || blog["badge-text"] || "What’s new in this article";
+
+  const content =
+    blog.content ||
+    blog.content2 ||
+    blog["post-body"] ||
+    blog["blog-content"] ||
+    blog["main-content"] ||
+    "";
 
   return (
     <>
@@ -86,7 +102,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
           <h1 className="mx-auto mt-6 max-w-[900px] text-center text-white text-5xl font-bold leading-tight mb-4">
             {title}
           </h1>
-
           <p className="max-w-[900px]">{desc}</p>
 
           <div className="mx-auto mt-12 max-w-2xl border-y border-white/10 py-6">
@@ -131,16 +146,15 @@ export default async function BlogPage({ params }: BlogPageProps) {
           )}
         </div>
       </section>
-
       {content && (
         <section className="bg-white py-12">
-          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[200px_minmax(0,1fr)_270px] gap-4">
+          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[200px_auto_270px] gap-4">
             <div className="hidden lg:block">
               <TableOfContents />
             </div>
 
             <div
-              className="blog-content min-w-0 overflow-hidden"
+              className="blog-content min-w-0"
               dangerouslySetInnerHTML={{
                 __html: content,
               }}
