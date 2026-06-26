@@ -1,4 +1,5 @@
 import courses from "@/data/courses.json";
+import CourseHero from "@/src/components/course/CourseHero";
 import { notFound } from "next/navigation";
 
 type PageProps = {
@@ -20,18 +21,8 @@ export default async function CoursePage({ params }: PageProps) {
   }
 
   return (
-    <main className="max-w-5xl mx-auto py-20 px-6">
-      <h1 className="text-4xl font-bold">{course.title}</h1>
-
-      <p className="mt-6">
-        <strong>Category:</strong> {course.category}
-      </p>
-
-      <p className="mt-2">
-        <strong>Slug:</strong> {course.slug}
-      </p>
-
-      <p className="mt-6">{course.description}</p>
+    <main className="bg-[#fbfbf7] max-w-7xl mx-auto px-6">
+      <CourseHero />
     </main>
   );
 }
