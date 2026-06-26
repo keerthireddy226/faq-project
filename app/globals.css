@@ -3,39 +3,101 @@
 :root {
   /* fonts */
   --display: var(--font-sora), sans-serif;
-  --serif:   var(--font-cormorant), 'Cormorant Garamond', serif;
-  --body:    var(--font-dm-sans), 'DM Sans', sans-serif;
-  --mono:    var(--font-dm-mono), 'DM Mono', monospace;
+  --serif: var(--font-cormorant), "Cormorant Garamond", serif;
+  --body: var(--font-dm-sans), "DM Sans", sans-serif;
 
   /* colors */
-  --navy:        #0A1628;
-  --navy-soft:   #14233D;
-  --navy-deep:   #050D1A;
-  --lime:        #C8F135;
-  --lime-soft:   #E4F89A;
-  --ink:         #0A1628;
-  --paper:       #FAFAF7;
-  --paper-warm:  #F2F0E8;
-  --paper-cream: #EDE9DD;
-  --white:       #fff;
-  --muted:       rgba(10, 22, 40, 0.6);
-  --muted-soft:  rgba(10, 22, 40, 0.45);
-  --rule:        rgba(10, 22, 40, 0.12);
+  --navy: #0a1628;
+  --navy-soft: #14233d;
+  --navy-deep: #050d1a;
+
+  --lime: #c8f135;
+  --lime-soft: #e4f89a;
+
+  --ink: #0a1628;
+
+  --paper: #fafaf7;
+  --paper-warm: #f2f0e8;
+  --paper-cream: #ede9dd;
+
+  --white: #ffffff;
+
+  --muted: rgba(10, 22, 40, 0.6);
+  --muted-soft: rgba(10, 22, 40, 0.45);
+
+  --rule: rgba(10, 22, 40, 0.12);
   --rule-strong: rgba(10, 22, 40, 0.22);
-  --background:  #ffffff;
-  --foreground:  #171717;
+
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
 @theme inline {
+  /* colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans:        var(--font-geist-sans);
-  --font-mono:        var(--font-geist-mono);
+
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-navy-deep: var(--navy-deep);
+
+  --color-lime: var(--lime);
+  --color-lime-soft: var(--lime-soft);
+
+  --color-ink: var(--ink);
+
+  --color-paper: var(--paper);
+  --color-paper-warm: var(--paper-warm);
+  --color-paper-cream: var(--paper-cream);
+
+  --color-muted: var(--muted);
+  --color-muted-soft: var(--muted-soft);
+
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+
+  /* fonts */
+  --font-sans: var(--body);
+  --font-display: var(--display);
+  --font-serif: var(--serif);
+  --font-mono: var(--mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--body);
   overflow-y: scroll;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
 }
