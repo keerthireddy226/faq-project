@@ -14,7 +14,7 @@ export default function CourseHero() {
 
           <h1 className="max-w-3xl font-[var(--display)] text-[44px] font-extrabold leading-[0.95] tracking-[-0.04em] text-[#07162c] md:text-[64px]">
             ML Model{" "}
-            <span className="font-[var(--serif)] text-[#6b8f00] italic font-normal">
+            <span className="[font-family:var(--serif)] text-[#6b8f00] italic font-normal">
               Monitoring
             </span>
             <br />
