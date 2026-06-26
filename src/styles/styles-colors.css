@@ -1,0 +1,23 @@
+:root {
+  /* fonts — mapped to Next.js loaded fonts */
+  --display: var(--font-sora), sans-serif;
+  --serif:   var(--font-cormorant), 'Cormorant Garamond', serif;
+  --body:    var(--font-dm-sans), 'DM Sans', sans-serif;
+  --mono:    var(--font-dm-mono), 'DM Mono', monospace;
+
+  /* colors */
+  --navy:        #0A1628;
+  --navy-soft:   #14233D;
+  --navy-deep:   #050D1A;
+  --lime:        #C8F135;
+  --lime-soft:   #E4F89A;
+  --ink:         #0A1628;
+  --paper:       #FAFAF7;
+  --paper-warm:  #F2F0E8;
+  --paper-cream: #EDE9DD;
+  --white:       #fff;
+  --muted:       rgba(10, 22, 40, 0.6);
+  --muted-soft:  rgba(10, 22, 40, 0.45);
+  --rule:        rgba(10, 22, 40, 0.12);
+  --rule-strong: rgba(10, 22, 40, 0.22);
+}
