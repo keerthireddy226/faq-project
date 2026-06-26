@@ -5,7 +5,7 @@
     "slug": "ml-model-monitoring",
     "description": "Dummy description for ML Model Monitoring.",
     "whatIs": {
-      "title": "What is",
+      "title": "What is ",
       "titleEm": "ML model monitoring?",
       "intro": "ML Model Monitoring is a critical discipline for organisations that deploy machine learning models in production and need them to stay accurate, reliable, fair, and compliant over time. This corporate training covers the complete production monitoring lifecycle, so your teams can operate ML systems with confidence.",
       "more": [
@@ -15,10 +15,22 @@
       "oldLabel": "Traditional software monitoring",
       "newLabel": "ML model monitoring",
       "rows": [
-        { "old": "Watches uptime and errors", "new": "Watches accuracy, drift, and fairness" },
-        { "old": "Fails loudly when it breaks", "new": "Degrades silently as data shifts" },
-        { "old": "Fixed logic, stable over time", "new": "Behaviour decays without code changes" },
-        { "old": "Pass or fail checks", "new": "Statistical drift and threshold guardrails" },
+        {
+          "old": "Watches uptime and errors",
+          "new": "Watches accuracy, drift, and fairness"
+        },
+        {
+          "old": "Fails loudly when it breaks",
+          "new": "Degrades silently as data shifts"
+        },
+        {
+          "old": "Fixed logic, stable over time",
+          "new": "Behaviour decays without code changes"
+        },
+        {
+          "old": "Pass or fail checks",
+          "new": "Statistical drift and threshold guardrails"
+        },
         { "old": "Redeploy to fix", "new": "Retrain, A/B test, and govern" }
       ]
     }

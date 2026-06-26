@@ -137,7 +137,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
           {badgeText && (
             <div className="mt-6 flex items-center justify-center gap-3">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#BFDB38]/30">
+              <span className="{container} flex h-5 w-5 items-center justify-center rounded-full bg-[#BFDB38]/30">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#BFDB38]" />
               </span>
 

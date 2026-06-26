@@ -1,7 +1,7 @@
 export default function CourseHero() {
   return (
-    <section className="bg-[#fbfbf7] px-5 py-12 lg:py-16">
-      <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
+    <section className="bg-[#fbfbf7] py-12 lg:py-16">
+      <div className="container grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           <div className="mb-6 text-[10px] font-medium uppercase tracking-[0.28em] text-slate-400">
             Home / IT & Technical / Artificial Intelligence / Machine Learning /
@@ -12,21 +12,21 @@ export default function CourseHero() {
             Instructor-led Corporate Training · IT & Technical
           </div>
 
-          <h1 className="max-w-3xl font-[var(--display)] text-[44px] font-extrabold leading-[0.95] tracking-[-0.04em] text-[#07162c] md:text-[64px]">
+          <h1 className="max-w-3xl font-[var(--display)] text-[44px] font-extrabold leading-[0.95] tracking-[-0.04em] text-[#07162c] md:text-[58px]">
             ML Model{" "}
-            <span className="[font-family:var(--serif)] text-[#6b8f00] italic font-normal">
+            <span className="[font-[var(--serif)] text-[#6b8f00] italic font-normal">
               Monitoring
             </span>
             <br />
             Corporate Training
           </h1>
 
-          <p className="mt-5 max-w-md font-[var(--body)] text-xl leading-8 text-[#07162c]">
+          <p className="mt-5 max-w-md  text-xl leading-8 text-[#07162c]">
             Keep production ML models <br />
             accurate, fair, and trusted.
           </p>
 
-          <p className="mt-6 max-w-xl font-[var(--body)] text-lg leading-8 text-slate-600">
+          <p className="mt-6 max-w-xl  text-lg leading-8 text-slate-600">
             ML Model Monitoring corporate training equips your ML, data science,
             and MLOps teams to run production models with confidence, covering
             drift detection, performance tracking, alerting, retraining, and
@@ -37,14 +37,14 @@ export default function CourseHero() {
           <div className="mt-8 flex flex-wrap gap-4">
             <a
               href="#course-outline"
-              className="rounded-full bg-[#07162c] px-8 py-4 font-[var(--body)] text-sm font-bold text-lime-300"
+              className="rounded-full bg-[#07162c] px-8 py-4  text-sm font-bold text-lime-300"
             >
               View course outline
             </a>
 
             <a
               href="#enquire"
-              className="rounded-full border border-slate-300 px-8 py-4 font-[var(--body)] text-sm font-bold text-[#07162c]"
+              className="rounded-full border border-slate-300 px-8 py-4  text-sm font-bold text-[#07162c]"
             >
               Enquire now
             </a>
@@ -68,7 +68,7 @@ export default function CourseHero() {
 
         <div className="flex justify-center lg:justify-end">
           <div className="w-full max-w-[520px] rounded-[22px] bg-[#07162c] p-8 text-white shadow-xl">
-            <p className="mb-8 font-[var(--body)] text-[10px] font-semibold uppercase tracking-[0.32em] text-lime-300">
+            <p className="mb-8  text-[10px] font-semibold uppercase tracking-[0.32em] text-lime-300">
               The Production Monitoring Lifecycle
             </p>
 
@@ -90,7 +90,7 @@ export default function CourseHero() {
               <CircleIcon className="bottom-[45px] left-[36px]" text="🔍" />
             </div>
 
-            <p className="mt-6 max-w-md font-[var(--body)] text-sm leading-6 text-slate-300">
+            <p className="mt-6 max-w-md  text-sm leading-6 text-slate-300">
               Hover a stage to see how this programme keeps production models
               healthy across the full monitoring lifecycle.
             </p>
@@ -112,7 +112,7 @@ function InfoCard({
 }) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5">
-      <p className="font-[var(--body)] text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">
+      <p className=" text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">
         {label}
       </p>
 
@@ -120,9 +120,7 @@ function InfoCard({
         {value}
       </p>
 
-      {sub && (
-        <p className="mt-1 font-[var(--body)] text-xs text-slate-500">{sub}</p>
-      )}
+      {sub && <p className="mt-1  text-xs text-slate-500">{sub}</p>}
     </div>
   );
 }

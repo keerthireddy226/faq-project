@@ -5,6 +5,7 @@
   --display: var(--font-sora), sans-serif;
   --serif: var(--font-cormorant), "Cormorant Garamond", serif;
   --body: var(--font-dm-sans), "DM Sans", sans-serif;
+  --mono: var(--font-dm-mono), "DM Mono", monospace;
 
   /* colors */
   --navy: #0a1628;
@@ -82,8 +83,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--display);
+}
+
+p,
+li,
+a,
+button,
+input,
+textarea,
+select {
+  font-family: var(--body);
 }
 
 a {
@@ -91,7 +107,10 @@ a {
   text-decoration: none;
 }
 
-button,
+button {
+  cursor: pointer;
+}
+
 input,
 textarea,
 select {
@@ -104,4 +123,11 @@ video,
 canvas {
   display: block;
   max-width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 20px;
 }

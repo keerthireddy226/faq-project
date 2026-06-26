@@ -22,7 +22,7 @@ export default async function CoursePage({ params }: PageProps) {
   }
 
   return (
-    <main className="bg-[#fbfbf7] max-w-7xl mx-auto px-6">
+    <main>
       <CourseHero />
 
       {"whatIs" in course && course.whatIs && (
