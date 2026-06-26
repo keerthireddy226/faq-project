@@ -27,7 +27,7 @@ export default function WhatIsSection({
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="bg-[var(--paper)] ">
+    <section className="bg-[var(--paper)] py-28 border-b border-[var(--rule)]">
       <div className="container">
         <div className="text-[11px] font-bold tracking-[0.12em] uppercase text-[var(--muted)] mb-[18px]">
           <span className="[font-family:var(--serif)] italic text-[14px] text-[var(--ink)]">
@@ -36,12 +36,12 @@ export default function WhatIsSection({
           {mark}
         </div>
 
-        <h2 className="mb-9 whitespace-nowrap text-[var(--ink)] leading-[1.08] text-[50px] font-bold tracking-[-0.03em]">
-          {title}
-          <span className="font-[var(--serif)] italic text-[50px] font-semibold text-[var(--ink)]">
+        <h2 className="mb-9 whitespace-nowrap text-[var(--ink)] leading-[1.08] text-[50px] font-bold tracking-[-0.03em] [font-family:var(--display)]">
+          {title}{" "}
+          <span className="[font-family:var(--serif)] italic font-semibold text-[var(--ink)]">
             {titleEm.replace(/\?$/, "")}
           </span>
-          ?
+          <span className="[font-family:var(--display)] font-bold">?</span>
         </h2>
 
         <div className="grid grid-cols-2 gap-12 items-start">

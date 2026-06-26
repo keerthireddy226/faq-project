@@ -8,7 +8,7 @@ export default function LifecycleSection() {
 
   return (
     <section className="bg-[var(--navy)] py-28 border-b border-white/10">
-      <div className="max-w-[1200px] mx-auto px-14">
+      <div className="container">
 
         <div className="text-[11px] font-bold tracking-[0.24em] uppercase text-white/60 mb-8 flex items-baseline gap-3 [font-family:var(--mono)]">
           <span className="[font-family:var(--serif)] italic text-[16px] text-white">II</span>
