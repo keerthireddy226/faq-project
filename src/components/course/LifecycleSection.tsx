@@ -23,7 +23,7 @@ export default function LifecycleSection() {
           This is the operational loop your teams will run after the training. Select a stage to see what it covers.
         </p>
 
-        <div className="grid grid-cols-[0.82fr_1.18fr] gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] gap-8 lg:gap-12 items-start">
           <div className="flex flex-col gap-2">
             {lifecycle.map((item, i) => (
               <button
@@ -41,7 +41,7 @@ export default function LifecycleSection() {
             ))}
           </div>
 
-          <div className="bg-[var(--navy-soft)] border border-white/14 rounded-[18px] p-9 min-h-[280px]">
+          <div className="bg-[var(--navy-soft)] border border-white/14 rounded-[18px] p-6 lg:p-9 min-h-[280px]">
             <p className="[font-family:var(--serif)] italic text-[clamp(21px,2.5vw,28px)] leading-[1.3] text-white mb-4"
                dangerouslySetInnerHTML={{ __html: m.over }} />
             <p className="text-[15px] leading-[1.7] text-white/80 mb-5">{m.p}</p>

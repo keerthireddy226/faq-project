@@ -21,7 +21,7 @@ export default function RelatedApplySection() {
           Related machine learning & <em className="[font-family:var(--serif)] italic">MLOps training</em> courses.
         </h2>
 
-        <div className="grid grid-cols-3 gap-4 mb-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-14">
           {related.map((r, i) => (
             <div key={i} className="bg-white border border-[var(--rule)] rounded-[14px] p-[22px] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_42px_-26px_rgba(10,22,40,0.5)] hover:border-[var(--rule-strong)] cursor-pointer">
               <h4 className="font-semibold text-[16px] tracking-[-0.01em] leading-[1.3]">{r.t}</h4>
@@ -42,7 +42,7 @@ export default function RelatedApplySection() {
           Request <em className="[font-family:var(--serif)] italic">ML Model Monitoring</em> training for your team.
         </h2>
 
-        <div className="grid grid-cols-3 gap-[18px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px]">
           {applyCards.map((c, i) => (
             <div key={i} className="bg-white border border-[var(--rule)] rounded-[18px] p-[30px] cursor-pointer transition-all duration-300 hover:-translate-y-[6px] hover:shadow-[0_24px_50px_-28px_rgba(10,22,40,0.5)]">
               <p className="[font-family:var(--mono)] text-[11px] tracking-[0.18em] text-[#6f8c0f] mb-5">{c.n}</p>

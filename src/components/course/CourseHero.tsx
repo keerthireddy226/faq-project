@@ -33,7 +33,7 @@ export default function CourseHero({
             {badge}
           </div>
 
-          <h1 className="max-w-3xl font-[var(--display)] text-[44px] font-extrabold leading-[0.95] tracking-[-0.04em] text-[#07162c] md:text-[64px]">
+          <h1 className="max-w-3xl font-[var(--display)] text-[clamp(30px,5vw,64px)] font-extrabold leading-[0.95] tracking-[-0.04em] text-[#07162c]">
             {headline}{" "}
             <span className="[font-family:var(--serif)] text-[#6b8f00] italic font-normal">
               {headlineEm}
@@ -42,11 +42,11 @@ export default function CourseHero({
             {headlineSuffix}
           </h1>
 
-          <p className="mt-5 max-w-md font-[var(--body)] text-xl leading-8 text-[#07162c]">
+          <p className="mt-5 max-w-md font-[var(--body)] text-lg md:text-xl leading-8 text-[#07162c]">
             {subtitle}
           </p>
 
-          <p className="mt-6 max-w-xl font-[var(--body)] text-lg leading-8 text-slate-600">
+          <p className="mt-6 max-w-xl font-[var(--body)] text-base md:text-lg leading-7 md:leading-8 text-slate-600">
             {lede}
           </p>
 
@@ -72,7 +72,7 @@ export default function CourseHero({
           </div>
         </div>
 
-        <div className="flex justify-center lg:justify-end">
+        <div className="hidden lg:flex justify-end">
           <div className="w-full max-w-[520px] rounded-[22px] bg-[#07162c] p-8 text-white shadow-xl">
             <p className="mb-8  text-[10px] font-semibold uppercase tracking-[0.32em] text-lime-300">
               The Production Monitoring Lifecycle

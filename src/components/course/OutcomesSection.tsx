@@ -34,7 +34,7 @@ export default function OutcomesSection() {
           Select the outcomes most relevant to your team. We tailor the curriculum and success measures around them.
         </p>
 
-        <div className="grid grid-cols-[1.4fr_0.6fr] gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.6fr] gap-8 lg:gap-12 items-start">
           <div className="flex flex-col gap-3">
             {outcomes.map((o, i) => {
               const isDone = done.has(i);
@@ -59,7 +59,7 @@ export default function OutcomesSection() {
             })}
           </div>
 
-          <div className="sticky top-[90px] bg-[var(--navy)] rounded-[20px] p-8 text-white text-center">
+          <div className="lg:sticky lg:top-[90px] bg-[var(--navy)] rounded-[20px] p-8 text-white text-center">
             <div className="relative w-[150px] h-[150px] mx-auto mb-5">
               <svg width="150" height="150" viewBox="0 0 150 150" className="-rotate-90">
                 <circle cx="75" cy="75" r="64" fill="none" stroke="rgba(250,250,247,.14)" strokeWidth="10" />

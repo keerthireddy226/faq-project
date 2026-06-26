@@ -9,7 +9,7 @@ export default function CertificateSection() {
           · Recognition that motivates
         </div>
 
-        <div className="grid grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
             <h2 className="font-bold text-[clamp(30px,4vw,50px)] leading-[1.08] tracking-[-0.03em] mb-5 max-w-[20ch]">
               Your ML Model Monitoring <em className="[font-family:var(--serif)] italic">training certificate</em>.

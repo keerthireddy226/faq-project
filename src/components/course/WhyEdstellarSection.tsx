@@ -18,7 +18,7 @@ export default function WhyEdstellarSection() {
           As a global corporate training company, Edstellar delivers ML Model Monitoring training in 10+ languages and across 100+ countries.
         </p>
 
-        <div className="grid grid-cols-3 gap-[18px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px]">
           {why.map((w, i) => (
             <div key={i} className="bg-white border border-[var(--rule)] rounded-[16px] p-7 transition-all duration-300 hover:-translate-y-[5px] hover:shadow-[0_22px_46px_-28px_rgba(10,22,40,0.5)]">
               <div className="w-[42px] h-[42px] rounded-[11px] bg-[var(--lime)]/18 flex items-center justify-center text-[20px] mb-4">{w.ic}</div>

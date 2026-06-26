@@ -36,7 +36,7 @@ export default function WhatIsSection({
           {mark}
         </div>
 
-        <h2 className="mb-9 whitespace-nowrap text-[var(--ink)] leading-[1.08] text-[50px] font-bold tracking-[-0.03em] [font-family:var(--display)]">
+        <h2 className="mb-9 text-[var(--ink)] leading-[1.08] text-[clamp(26px,4vw,50px)] font-bold tracking-[-0.03em] [font-family:var(--display)]">
           {title}{" "}
           <span className="[font-family:var(--serif)] italic font-semibold text-[var(--ink)]">
             {titleEm.replace(/\?$/, "")}
@@ -44,7 +44,7 @@ export default function WhatIsSection({
           <span className="[font-family:var(--display)] font-bold">?</span>
         </h2>
 
-        <div className="grid grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
           <div>
             <p className="text-base leading-[1.7] text-[var(--muted)]">
               {intro}

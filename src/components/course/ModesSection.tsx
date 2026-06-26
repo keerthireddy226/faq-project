@@ -41,7 +41,7 @@ export default function ModesSection() {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-10 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
           <div>
             <h3 className="[font-family:var(--display)] font-semibold text-[24px] tracking-[-0.02em] mb-3">{m.h}</h3>
             <p className="text-[var(--muted)] text-[15px] leading-[1.6]">{m.d}</p>

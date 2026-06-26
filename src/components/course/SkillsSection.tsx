@@ -30,7 +30,7 @@ export default function SkillsSection() {
           These are the core, practical skills your team develops during the programme. Tap any card to see what it means in production.
         </p>
 
-        <div className="grid grid-cols-3 gap-[18px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px]">
           {skills.map((s, i) => {
             const isFlipped = flipped.has(i);
             return (
