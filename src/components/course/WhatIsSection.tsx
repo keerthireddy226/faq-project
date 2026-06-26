@@ -27,7 +27,7 @@ export default function WhatIsSection({
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="bg-[var(--paper)] ">
+    <section className="bg-[var(--paper)] py-28 border-b border-[var(--rule)]">
       <div className="container">
         <div className="text-[11px] font-bold tracking-[0.12em] uppercase text-[var(--muted)] mb-[18px]">
           <span className="[font-family:var(--serif)] italic text-[14px] text-[var(--ink)]">
