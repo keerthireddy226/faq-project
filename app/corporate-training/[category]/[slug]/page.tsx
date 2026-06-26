@@ -29,7 +29,7 @@ export default async function CoursePage({ params }: PageProps) {
 
   return (
     <main>
-      <CourseHero />
+      {"hero" in course && course.hero && <CourseHero {...course.hero} />}
       {"whatIs" in course && course.whatIs && <WhatIsSection {...course.whatIs} />}
       <LifecycleSection />
       <SkillsSection />

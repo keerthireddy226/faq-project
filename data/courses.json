@@ -4,6 +4,21 @@
     "category": "artificial-intelligence",
     "slug": "ml-model-monitoring",
     "description": "Dummy description for ML Model Monitoring.",
+    "hero": {
+      "breadcrumb": "Home / IT & Technical / Artificial Intelligence / Machine Learning / ML Model Monitoring",
+      "badge": "Instructor-led Corporate Training · IT & Technical",
+      "headline": "ML Model",
+      "headlineEm": "Monitoring",
+      "headlineSuffix": "Corporate Training",
+      "subtitle": "Keep production ML models accurate, fair, and trusted.",
+      "lede": "ML Model Monitoring corporate training equips your ML, data science, and MLOps teams to run production models with confidence, covering drift detection, performance tracking, alerting, retraining, and fairness governance. Instructor-led, fully customised, and delivered to your teams onsite or virtually worldwide.",
+      "chips": [
+        { "label": "Duration", "value": "16–24 hrs" },
+        { "label": "Delivery", "value": "Instructor-led", "sub": "Virtual · On-site · Off-site" },
+        { "label": "Languages", "value": "10", "sub": "incl. EN, ES, DE, 中文" },
+        { "label": "Reach", "value": "100+", "sub": "countries" }
+      ]
+    },
     "whatIs": {
       "title": "What is",
       "titleEm": "ML model monitoring?",
