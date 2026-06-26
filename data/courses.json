@@ -1,0 +1,20 @@
+[
+  {
+    "title": "ML Model Monitoring",
+    "category": "artificial-intelligence",
+    "slug": "ml-model-monitoring",
+    "description": "Dummy description for ML Model Monitoring."
+  },
+  {
+    "title": "ABC Training",
+    "category": "artificial-intelligence",
+    "slug": "abc-training",
+    "description": "Dummy description for ABC Training."
+  },
+  {
+    "title": "CDE Training",
+    "category": "cyber-security",
+    "slug": "cde-training",
+    "description": "Dummy description for CDE Training."
+  }
+]

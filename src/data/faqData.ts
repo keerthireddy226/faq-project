@@ -80,8 +80,7 @@ export const learningstrategyFaqData = {
     },
     {
       id: 6,
-      question:
-        "How do you measure the ROI of a learning strategy engagement?",
+      question: "How do you measure the ROI of a learning strategy engagement?",
       answer:
         "As your learning strategy design partner, Edstellar establishes clear, measurable KPIs at the start of every engagement aligned with your business objectives. Metrics typically include performance improvements against baseline, time-to-productivity for capability-critical roles, leadership pipeline strength scores, training engagement and completion rates, and where applicable, revenue or efficiency gains attributable to capability building. Every engagement concludes with an executive-ready ROI summary.",
     },
@@ -107,7 +106,8 @@ export const learningtechnologyFaqData = {
     },
     {
       id: 3,
-      question: "Can Edstellar integrate learning technology with our existing HR systems?",
+      question:
+        "Can Edstellar integrate learning technology with our existing HR systems?",
       answer:
         "Yes. Edstellar's learning technology consulting solutions include integration architecture design, connecting your learning platform to HRIS, talent management, performance management, and skills intelligence systems. We map data flows, define API requirements, configure SSO, and ensure unified reporting across your HR technology ecosystem including SAP SuccessFactors, Workday, Oracle HCM, and Microsoft Viva.",
     },
@@ -119,7 +119,8 @@ export const learningtechnologyFaqData = {
     },
     {
       id: 5,
-      question: "How long does a learning technology consulting engagement take?",
+      question:
+        "How long does a learning technology consulting engagement take?",
       answer:
         "A full learning technology consulting engagement, from discovery audit through vendor evaluation and architecture blueprint, typically runs 8–12 weeks. Discovery and audit: 2–3 weeks. Requirements and design: 3–4 weeks. Vendor evaluation: 2–4 weeks. Implementation support is ongoing. Organisations with simpler requirements or an existing platform seeking optimisation can complete in 4–6 weeks.",
     },
