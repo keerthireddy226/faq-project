@@ -11,6 +11,7 @@ import TableOfContents from "@/src/styles/TableOfContents";
 import TrainingCatalogCTA from "@/src/components/blog/TrainingCatalogCTA";
 import BlogTrainingCTA from "@/src/components/blog/BlogTrainingCTA";
 import CoachingCTA from "@/src/components/blog/CoachingCTA";
+import SkillMatrixCTA from "@/src/components/blog/SkillMatrixCTA";
 
 type BlogPageProps = {
   params: Promise<{
@@ -166,6 +167,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
               <TrainingCatalogCTA />
               <br />
               <CoachingCTA />
+              <SkillMatrixCTA />
               <br />
               <BlogTrainingCTA />
               <br />
