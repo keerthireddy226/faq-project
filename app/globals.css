@@ -1,6 +1,9 @@
 @import "tailwindcss";
+@import "intl-tel-input/styles";
 
 :root {
+  --iti-path-flags-1x: url(/intl-tel-input-img/flags.webp);
+  --iti-path-flags-2x: url(/intl-tel-input-img/flags@2x.webp);
   /* fonts */
   --display: var(--font-sora), sans-serif;
   --serif: var(--font-cormorant), "Cormorant Garamond", serif;
