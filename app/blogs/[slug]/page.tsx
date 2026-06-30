@@ -12,6 +12,7 @@ import TrainingCatalogCTA from "@/src/components/blog/TrainingCatalogCTA";
 import BlogTrainingCTA from "@/src/components/blog/BlogTrainingCTA";
 import CoachingCTA from "@/src/components/blog/CoachingCTA";
 import SkillMatrixCTA from "@/src/components/blog/SkillMatrixCTA";
+import Abc from "@/src/components/blog/Abc";
 
 type BlogPageProps = {
   params: Promise<{
@@ -175,6 +176,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
           </div>
 
           <BlogFaqScript />
+          <Abc />
         </section>
       )}
     </>
