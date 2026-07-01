@@ -13,6 +13,7 @@ import TestimonialsSection from "@/src/components/course/TestimonialsSection";
 import CertificateSection from "@/src/components/course/CertificateSection";
 import CourseFAQSection from "@/src/components/course/CourseFAQSection";
 import RelatedApplySection from "@/src/components/course/RelatedApplySection";
+import ContactFormSection from "@/src/components/course/ContactFormSection";
 
 type PageProps = {
   params: Promise<{ category: string; slug: string }>;
@@ -44,6 +45,7 @@ export default async function CoursePage({ params }: PageProps) {
       <CertificateSection />
       <CourseFAQSection />
       <RelatedApplySection />
+      <ContactFormSection />
     </main>
   );
 }

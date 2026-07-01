@@ -1,13 +1,26 @@
 "use client";
-
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import allCountries, { type Country as ITICountry } from "intl-tel-input/data";
+import type { Iti, Iso2 } from "intl-tel-input";
+import countryNames from "./countryNames";
 
-const preferredCodes = ["us", "gb", "in", "au", "ca"];
+const preferredCodes: Iso2[] = ["us", "gb", "in", "au", "ca"];
 
-function cleanName(name: string) {
-  return name.replace(/\s*\(.*?\)/g, "").trim();
+// Force native dropdown option text/background regardless of OS dark theme.
+const optionStyle: React.CSSProperties = {
+  color: "#000000",
+  backgroundColor: "#ffffff",
+};
+
+// intl-tel-input only fills in country `name`s after the plugin inits, so use a
+// static map for the declarative <select>. It MUST be deterministic across server
+// and client (no runtime Intl.DisplayNames) or React hydration fails and breaks
+// the phone widget.
+function countryName(iso2: string): string {
+  return countryNames[iso2] ?? iso2.toUpperCase();
 }
+
+type CountryOption = { iso2: Iso2; name: string };
 
 export default function ContactFormSection({
   backgroundImage = "/learningstrategy.webp",
@@ -15,78 +28,72 @@ export default function ContactFormSection({
   backgroundImage?: string;
 }) {
   const phoneRef = useRef<HTMLInputElement>(null);
-  const countrySelectRef = useRef<HTMLSelectElement>(null);
-  const countryNameRef = useRef<HTMLInputElement>(null);
   const dialCodeRef = useRef<HTMLInputElement>(null);
   const branchRef = useRef<HTMLInputElement>(null);
   const pageNameRef = useRef<HTMLInputElement>(null);
-  const itiRef = useRef<any>(null);
+  const itiRef = useRef<Iti | null>(null);
+
+  // Country select is rendered declaratively so React owns the <option>s.
+  const [selectedIso2, setSelectedIso2] = useState<Iso2>("in");
+
+  const { preferred, rest } = useMemo(() => {
+    const named: CountryOption[] = allCountries.map((c: ITICountry) => ({
+      iso2: c.iso2,
+      name: countryName(c.iso2),
+    }));
+    const preferred = preferredCodes
+      .map((code) => named.find((c) => c.iso2 === code))
+      .filter(Boolean) as CountryOption[];
+    const rest = named
+      .filter((c) => !preferredCodes.includes(c.iso2))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    return { preferred, rest };
+  }, []);
+
+  const selectedCountryName = useMemo(
+    () => countryName(selectedIso2),
+    [selectedIso2],
+  );
 
   useEffect(() => {
     if (!phoneRef.current) return;
     let destroyed = false;
 
     async function init() {
-      const { default: intlTelInput } = await import("intl-tel-input/intlTelInputWithUtils");
+      const { default: intlTelInput } =
+        await import("intl-tel-input/intlTelInputWithUtils");
       if (destroyed || !phoneRef.current) return;
 
       const iti = intlTelInput(phoneRef.current, {
         initialCountry: "in",
-        countryOrder: [...preferredCodes] as any,
+        countryOrder: [...preferredCodes],
         separateDialCode: true,
         formatAsYouType: true,
+        placeholderNumberPolicy: "AGGRESSIVE",
       });
       itiRef.current = iti;
-
-      // Build country select
-      const sel = countrySelectRef.current;
-      if (sel) {
-        sel.innerHTML = "";
-        const addOpt = (text: string, val: string, disabled = false) => {
-          const o = document.createElement("option");
-          o.value = val;
-          o.textContent = text;
-          if (disabled) o.disabled = true;
-          sel.appendChild(o);
-        };
-        addOpt("Select Country*", "", true);
-        preferredCodes.forEach((code) => {
-          const c = allCountries.find((x: ITICountry) => x.iso2 === code);
-          if (c) addOpt(cleanName(c.name), c.iso2);
-        });
-        addOpt("────────────", "", true);
-        allCountries
-          .filter((c: ITICountry) => !preferredCodes.includes(c.iso2))
-          .sort((a: ITICountry, b: ITICountry) => a.name.localeCompare(b.name))
-          .forEach((c: ITICountry) => addOpt(cleanName(c.name), c.iso2));
-      }
 
       function syncCountryInfo() {
         const data = itiRef.current?.getSelectedCountry();
         if (!data) return;
-        if (dialCodeRef.current) dialCodeRef.current.value = data.dialCode || "";
-        if (countryNameRef.current) countryNameRef.current.value = cleanName(data.name || "");
-        if (countrySelectRef.current && data.iso2) {
-          countrySelectRef.current.value = data.iso2;
-        }
+        if (dialCodeRef.current)
+          dialCodeRef.current.value = data.dialCode || "";
+        if (data.iso2) setSelectedIso2(data.iso2);
       }
 
       syncCountryInfo();
       phoneRef.current.addEventListener("countrychange", syncCountryInfo);
-
-      if (sel) {
-        sel.addEventListener("change", function () {
-          if (this.value) itiRef.current?.setSelectedCountry(this.value as any);
-        });
-      }
     }
 
     init();
 
     // Auto-fill hidden fields from URL
     const pathSegments = window.location.pathname.split("/").filter(Boolean);
-    if (branchRef.current) branchRef.current.value = pathSegments[0] || "course";
-    if (pageNameRef.current) pageNameRef.current.value = pathSegments[pathSegments.length - 1] || "Home Page";
+    if (branchRef.current)
+      branchRef.current.value = pathSegments[0] || "course";
+    if (pageNameRef.current)
+      pageNameRef.current.value =
+        pathSegments[pathSegments.length - 1] || "Home Page";
 
     return () => {
       destroyed = true;
@@ -127,7 +134,10 @@ export default function ContactFormSection({
 
   function showError(id: string, msg: string) {
     const el = document.getElementById(id);
-    if (el) { el.textContent = msg; el.style.display = "block"; }
+    if (el) {
+      el.textContent = msg;
+      el.style.display = "block";
+    }
   }
   function hideError(id: string) {
     const el = document.getElementById(id);
@@ -157,7 +167,11 @@ export default function ContactFormSection({
             onSubmit={handleSubmit}
           >
             <input type="hidden" name="zf_referrer_name" value="" />
-            <input type="hidden" name="zf_redirect_url" value="https://www.edstellar.com/thank-you/course" />
+            <input
+              type="hidden"
+              name="zf_redirect_url"
+              value="https://www.edstellar.com/thank-you/course"
+            />
             <input type="hidden" name="zc_gad" value="" />
 
             {/* Name */}
@@ -170,7 +184,10 @@ export default function ContactFormSection({
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
-              <p id="Name-error2" className="text-red-500 text-xs absolute right-0 hidden" />
+              <p
+                id="Name-error2"
+                className="text-red-500 text-xs absolute right-0 hidden"
+              />
             </div>
 
             {/* Email */}
@@ -183,7 +200,10 @@ export default function ContactFormSection({
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
-              <p id="Email-error2" className="text-red-500 text-xs absolute right-0 hidden" />
+              <p
+                id="Email-error2"
+                className="text-red-500 text-xs absolute right-0 hidden"
+              />
             </div>
 
             {/* Company */}
@@ -196,7 +216,10 @@ export default function ContactFormSection({
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
-              <p id="Company-error2" className="text-red-500 text-xs absolute right-0 hidden" />
+              <p
+                id="Company-error2"
+                className="text-red-500 text-xs absolute right-0 hidden"
+              />
             </div>
 
             {/* Job Title */}
@@ -209,26 +232,60 @@ export default function ContactFormSection({
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
-              <p id="Job-error2" className="text-red-500 text-xs absolute right-0 hidden" />
+              <p
+                id="Job-error2"
+                className="text-red-500 text-xs absolute right-0 hidden"
+              />
             </div>
 
             {/* Country Select */}
             <div className="mb-[18px] relative" id="select-parent">
               <select
                 name="Dropdown"
-                ref={countrySelectRef}
                 id="country-select1"
-                defaultValue=""
+                value={selectedIso2}
+                onChange={(e) => {
+                  const iso2 = e.target.value as Iso2;
+                  setSelectedIso2(iso2);
+                  if (iso2) itiRef.current?.setSelectedCountry(iso2);
+                }}
+                style={{ colorScheme: "light" }}
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] appearance-none cursor-pointer outline-none focus:[border:2px_solid_#3898ec] text-black"
               >
-                <option value="" disabled>Select Country*</option>
+                <option value="" disabled style={optionStyle}>
+                  Select Country*
+                </option>
+                {preferred.map((c) => (
+                  <option key={c.iso2} value={c.iso2} style={optionStyle}>
+                    {c.name}
+                  </option>
+                ))}
+                <option value="" disabled style={optionStyle}>
+                  ────────────
+                </option>
+                {rest.map((c) => (
+                  <option key={c.iso2} value={c.iso2} style={optionStyle}>
+                    {c.name}
+                  </option>
+                ))}
               </select>
-              <input type="hidden" name="SingleLine7" ref={countryNameRef} />
+              <input
+                type="hidden"
+                name="SingleLine7"
+                value={selectedCountryName}
+                readOnly
+              />
               <svg
                 className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-[10px] h-[6px]"
-                viewBox="0 0 10 6" fill="none"
+                viewBox="0 0 10 6"
+                fill="none"
               >
-                <path d="M1 1l4 4 4-4" stroke="#666" strokeWidth="1.5" strokeLinecap="round" />
+                <path
+                  d="M1 1l4 4 4-4"
+                  stroke="#666"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               </svg>
             </div>
 
@@ -245,7 +302,10 @@ export default function ContactFormSection({
                 autoComplete="off"
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
-              <p id="Phone-error2" className="text-red-500 text-xs absolute right-0 hidden" />
+              <p
+                id="Phone-error2"
+                className="text-red-500 text-xs absolute right-0 hidden"
+              />
             </div>
 
             {/* Message */}
@@ -259,8 +319,20 @@ export default function ContactFormSection({
               />
             </div>
 
-            <input type="hidden" name="SingleLine5" id="branch" ref={branchRef} defaultValue="course" />
-            <input type="hidden" name="SingleLine4" id="page-name" ref={pageNameRef} defaultValue="" />
+            <input
+              type="hidden"
+              name="SingleLine5"
+              id="branch"
+              ref={branchRef}
+              defaultValue="course"
+            />
+            <input
+              type="hidden"
+              name="SingleLine4"
+              id="page-name"
+              ref={pageNameRef}
+              defaultValue=""
+            />
 
             <div className="flex justify-center">
               <button
