@@ -176,6 +176,19 @@ export default function ContactFormSection({
       return;
     }
 
+    // Ensure Zoho's required hidden fields (branch / PAGE NAME) are populated
+    // at submit time, regardless of effect timing or re-renders.
+    const segments = window.location.pathname.split("/").filter(Boolean);
+    if (branchRef.current) {
+      branchRef.current.value = branchRef.current.value || segments[0] || "course";
+    }
+    if (pageNameRef.current) {
+      pageNameRef.current.value =
+        pageNameRef.current.value ||
+        segments[segments.length - 1] ||
+        "Home Page";
+    }
+
     // Extract national number for submission
     const country = iti?.getSelectedCountry();
     if (iti && phone && country) {
@@ -222,7 +235,7 @@ export default function ContactFormSection({
     >
       <div className="absolute inset-0 bg-black/55" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 flex justify-end">
+      <div className="container relative z-10 flex justify-end">
         <div className="w-full max-w-[720px] bg-white mt-10 mb-10 rounded-[10px] px-8 md:px-10 py-8 shadow-xl">
           <h2 className="text-[30px] font-bold text-[#1a1a2e] leading-tight">
             Contact Us
