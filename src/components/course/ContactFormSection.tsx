@@ -27,7 +27,7 @@ const EMAIL_RE =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default function ContactFormSection({
-  backgroundImage = "/learningstrategy.webp",
+  backgroundImage = "/Contact Form Banner.webp",
 }: {
   backgroundImage?: string;
 }) {
@@ -85,12 +85,29 @@ export default function ContactFormSection({
         if (data.iso2) setSelectedIso2(data.iso2);
       }
 
-      syncCountryInfo();
-      phoneRef.current.addEventListener("countrychange", syncCountryInfo);
-      phoneRef.current.addEventListener("input", () => {
+      // Live-validate the phone on every input change: keep the error visible
+      // until a valid number is entered.
+      function validatePhone() {
         const el = document.getElementById("Phone-error2");
-        if (el) el.style.display = "none";
+        if (!el) return;
+        const value = phoneRef.current?.value.trim() ?? "";
+        if (!value) {
+          el.textContent = "Phone number is required";
+          el.style.display = "block";
+        } else if (itiRef.current?.isValidNumber() === false) {
+          el.textContent = "Invalid phone number";
+          el.style.display = "block";
+        } else {
+          el.style.display = "none";
+        }
+      }
+
+      syncCountryInfo();
+      phoneRef.current.addEventListener("countrychange", () => {
+        syncCountryInfo();
+        validatePhone();
       });
+      phoneRef.current.addEventListener("input", validatePhone);
     }
 
     init();
@@ -169,12 +186,14 @@ export default function ContactFormSection({
     }
   }
 
-  // Hide a field's error message as soon as the user edits it.
-  function clearError(errorId: string) {
-    hideError(errorId);
+  // Live-validate a required field on every input change: keep the error
+  // visible until the field has a value.
+  function validateRequired(errorId: string, value: string, msg: string) {
+    if (!value.trim()) showError(errorId, msg);
+    else hideError(errorId);
   }
 
-  // Validate the email format when the user leaves the field.
+  // Live-validate the email format on every input change.
   function validateEmail(value: string) {
     const v = value.trim();
     if (v && !EMAIL_RE.test(v)) {
@@ -204,9 +223,13 @@ export default function ContactFormSection({
       <div className="absolute inset-0 bg-black/55" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 flex justify-end">
-        <div className="w-full max-w-[480px] bg-white rounded-2xl shadow-2xl p-8">
-          <p className="text-[22px] font-semibold text-[#2d2d2d] text-center leading-6 mb-5">
-            Request a Quote for your Corporate Training Requirements
+        <div className="w-full max-w-[720px] bg-white mt-10 mb-10 rounded-[10px] px-8 md:px-10 py-8 shadow-xl">
+          <h2 className="text-[30px] font-bold text-[#1a1a2e] leading-tight">
+            Contact Us
+          </h2>
+          <p className="mt-2 mb-6 text-sm text-gray-500">
+            Submit your Training Requirements below and We&apos;ll get in touch
+            with you shortly.
           </p>
 
           <form
@@ -218,6 +241,7 @@ export default function ContactFormSection({
             encType="multipart/form-data"
             onSubmit={handleSubmit}
             noValidate
+            className="grid grid-cols-1 md:grid-cols-2 gap-5"
           >
             <input type="hidden" name="zf_referrer_name" value="" />
             <input
@@ -228,76 +252,93 @@ export default function ContactFormSection({
             <input type="hidden" name="zc_gad" value="" />
 
             {/* Name */}
-            <div className="mb-[18px] relative">
+            <div className="relative">
               <input
                 type="text"
                 name="SingleLine2"
                 maxLength={255}
                 placeholder="Enter your Name*"
-                onInput={() => clearError("Name-error2")}
+                onInput={(e) =>
+                  validateRequired(
+                    "Name-error2",
+                    e.currentTarget.value,
+                    "Name is required",
+                  )
+                }
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
               <p
                 id="Name-error2"
-                className="text-red-500 text-xs absolute right-0 hidden"
+                className="text-red-500 text-xs absolute right-0 top-full mt-0.5 hidden"
               />
             </div>
 
             {/* Email */}
-            <div className="mb-[18px] relative">
+            <div className="relative">
               <input
                 type="email"
                 name="Email"
                 maxLength={255}
                 placeholder="Enter your Work Email*"
-                onInput={() => clearError("Email-error2")}
-                onBlur={(e) => validateEmail(e.currentTarget.value)}
+                onInput={(e) => validateEmail(e.currentTarget.value)}
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
               <p
                 id="Email-error2"
-                className="text-red-500 text-xs absolute right-0 hidden"
+                className="text-red-500 text-xs absolute right-0 top-full mt-0.5 hidden"
               />
             </div>
 
             {/* Company */}
-            <div className="mb-[18px] relative">
+            <div className="relative">
               <input
                 type="text"
                 name="SingleLine"
                 maxLength={255}
                 placeholder="Enter your Company Name*"
-                onInput={() => clearError("Company-error2")}
+                onInput={(e) =>
+                  validateRequired(
+                    "Company-error2",
+                    e.currentTarget.value,
+                    "Company name is required",
+                  )
+                }
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
               <p
                 id="Company-error2"
-                className="text-red-500 text-xs absolute right-0 hidden"
+                className="text-red-500 text-xs absolute right-0 top-full mt-0.5 hidden"
               />
             </div>
 
             {/* Job Title */}
-            <div className="mb-[18px] relative">
+            <div className="relative">
               <input
                 type="text"
                 name="SingleLine1"
                 maxLength={255}
                 placeholder="Enter your Job Title*"
-                onInput={() => clearError("Job-error2")}
+                onInput={(e) =>
+                  validateRequired(
+                    "Job-error2",
+                    e.currentTarget.value,
+                    "Job title is required",
+                  )
+                }
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
               <p
                 id="Job-error2"
-                className="text-red-500 text-xs absolute right-0 hidden"
+                className="text-red-500 text-xs absolute right-0 top-full mt-0.5 hidden"
               />
             </div>
 
             {/* Country Select */}
-            <div className="mb-[18px] relative" id="select-parent">
+            <div className="relative" id="select-parent">
               <select
                 name="Dropdown"
                 id="country-select1"
@@ -348,7 +389,7 @@ export default function ContactFormSection({
             </div>
 
             {/* Phone */}
-            <div className="mb-[18px] relative">
+            <div className="relative">
               <input type="hidden" name="SingleLine3" ref={dialCodeRef} />
               <input
                 ref={phoneRef}
@@ -362,12 +403,12 @@ export default function ContactFormSection({
               />
               <p
                 id="Phone-error2"
-                className="text-red-500 text-xs absolute right-0 hidden"
+                className="text-red-500 text-xs absolute right-0 top-full mt-0.5 hidden"
               />
             </div>
 
             {/* Message */}
-            <div className="mb-[18px]">
+            <div className="md:col-span-2">
               <textarea
                 name="MultiLine"
                 maxLength={65535}
@@ -392,10 +433,10 @@ export default function ContactFormSection({
               defaultValue=""
             />
 
-            <div className="flex justify-center">
+            <div className="md:col-span-2 flex justify-end">
               <button
                 type="submit"
-                className="bg-[#1a3c6e] hover:bg-[#152e55] text-white font-semibold px-10 py-3 rounded cursor-pointer transition-colors text-sm"
+                className="bg-[#1a3c6e] hover:bg-[#152e55] text-white font-semibold px-10 py-3 rounded-md cursor-pointer transition-colors text-sm"
               >
                 Submit
               </button>
