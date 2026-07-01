@@ -22,6 +22,10 @@ function countryName(iso2: string): string {
 
 type CountryOption = { iso2: Iso2; name: string };
 
+// Requires text + "@" + domain + "." + TLD (rejects missing/misplaced "@").
+const EMAIL_RE =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 export default function ContactFormSection({
   backgroundImage = "/learningstrategy.webp",
 }: {
@@ -83,6 +87,10 @@ export default function ContactFormSection({
 
       syncCountryInfo();
       phoneRef.current.addEventListener("countrychange", syncCountryInfo);
+      phoneRef.current.addEventListener("input", () => {
+        const el = document.getElementById("Phone-error2");
+        if (el) el.style.display = "none";
+      });
     }
 
     init();
@@ -103,33 +111,77 @@ export default function ContactFormSection({
   }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    const iti = itiRef.current;
-    if (!iti) return;
+    const form = e.currentTarget;
+    let valid = true;
 
-    const phone = phoneRef.current;
-    if (!phone) return;
+    const requireField = (fieldName: string, errorId: string, msg: string) => {
+      const el = form.elements.namedItem(fieldName) as HTMLInputElement | null;
+      const value = el?.value.trim() ?? "";
+      if (!value) {
+        showError(errorId, msg);
+        valid = false;
+        return "";
+      }
+      hideError(errorId);
+      return value;
+    };
 
-    // Validate phone
-    if (!phone.value.trim()) {
-      e.preventDefault();
-      showError("Phone-error2", "Phone number is required");
-      return;
+    requireField("SingleLine2", "Name-error2", "Name is required");
+
+    const email = requireField(
+      "Email",
+      "Email-error2",
+      "Email address is required",
+    );
+    if (email && !EMAIL_RE.test(email)) {
+      showError("Email-error2", "Enter a valid email address");
+      valid = false;
     }
-    if (iti.isValidNumber() === false) {
-      e.preventDefault();
+
+    requireField("SingleLine", "Company-error2", "Company name is required");
+    requireField("SingleLine1", "Job-error2", "Job title is required");
+
+    // Validate phone (unchanged intl-tel-input logic)
+    const iti = itiRef.current;
+    const phone = phoneRef.current;
+    if (!phone || !phone.value.trim()) {
+      showError("Phone-error2", "Phone number is required");
+      valid = false;
+    } else if (iti && iti.isValidNumber() === false) {
       showError("Phone-error2", "Invalid phone number");
+      valid = false;
+    } else {
+      hideError("Phone-error2");
+    }
+
+    if (!valid) {
+      e.preventDefault();
       return;
     }
 
     // Extract national number for submission
-    const country = iti.getSelectedCountry();
-    if (country) {
+    const country = iti?.getSelectedCountry();
+    if (iti && phone && country) {
       const full = iti.getNumber("E164") as string;
       const national = full.substring(1 + country.dialCode.length);
       phone.value = national;
       if (dialCodeRef.current) dialCodeRef.current.value = country.dialCode;
     }
-    hideError("Phone-error2");
+  }
+
+  // Hide a field's error message as soon as the user edits it.
+  function clearError(errorId: string) {
+    hideError(errorId);
+  }
+
+  // Validate the email format when the user leaves the field.
+  function validateEmail(value: string) {
+    const v = value.trim();
+    if (v && !EMAIL_RE.test(v)) {
+      showError("Email-error2", "Enter a valid email address");
+    } else {
+      hideError("Email-error2");
+    }
   }
 
   function showError(id: string, msg: string) {
@@ -165,6 +217,7 @@ export default function ContactFormSection({
             acceptCharset="UTF-8"
             encType="multipart/form-data"
             onSubmit={handleSubmit}
+            noValidate
           >
             <input type="hidden" name="zf_referrer_name" value="" />
             <input
@@ -181,6 +234,7 @@ export default function ContactFormSection({
                 name="SingleLine2"
                 maxLength={255}
                 placeholder="Enter your Name*"
+                onInput={() => clearError("Name-error2")}
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
@@ -197,6 +251,8 @@ export default function ContactFormSection({
                 name="Email"
                 maxLength={255}
                 placeholder="Enter your Work Email*"
+                onInput={() => clearError("Email-error2")}
+                onBlur={(e) => validateEmail(e.currentTarget.value)}
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
@@ -213,6 +269,7 @@ export default function ContactFormSection({
                 name="SingleLine"
                 maxLength={255}
                 placeholder="Enter your Company Name*"
+                onInput={() => clearError("Company-error2")}
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
@@ -229,6 +286,7 @@ export default function ContactFormSection({
                 name="SingleLine1"
                 maxLength={255}
                 placeholder="Enter your Job Title*"
+                onInput={() => clearError("Job-error2")}
                 required
                 className="h-[46px] bg-white [border:1px_solid_#c1c1c1] w-full rounded-[3px] px-3 text-sm leading-[22px] outline-none focus:[border:2px_solid_#3898ec]"
               />
