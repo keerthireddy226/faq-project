@@ -147,3 +147,16 @@ canvas {
 .iti--separate-dial-code .iti__selected-country {
   background: white;
 }
+
+/* Contact form (#form2) phone field must match its sibling inputs, not the
+   taller TrainingForm styling that the generic `.iti input` rule above sets. */
+#form2 .iti input {
+  height: 46px;
+  border-radius: 3px;
+  border: 1px solid #c1c1c1;
+  font-size: 14px;
+}
+
+#form2 .iti input:focus {
+  border: 2px solid #3898ec;
+}
