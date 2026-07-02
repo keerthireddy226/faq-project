@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "gen:countries": "node scripts/generate-country-names.mjs",
+    "predev": "npm run gen:countries",
+    "prebuild": "npm run gen:countries",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
