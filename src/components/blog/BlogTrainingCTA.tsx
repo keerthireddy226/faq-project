@@ -1,4 +1,5 @@
 import Link from "next/link";
+import QuoteModalButton from "./QuoteModalButton";
 
 export default function BlogTrainingCTA() {
   return (
@@ -16,12 +17,9 @@ export default function BlogTrainingCTA() {
           Have a Training Requirement?
         </h3>
 
-        <Link
-          href="#"
-          className="mb-4 rounded-[8px] border-2 border-[#264CBE] px-6 py-3 text-center font-medium text-[#264CBE] transition-all duration-300 hover:bg-[#264CBE] hover:text-white"
-        >
+        <QuoteModalButton className="mb-4 cursor-pointer rounded-[8px] border-2 border-[#264CBE] px-6 py-3 text-center font-medium text-[#264CBE] transition-all duration-300 hover:bg-[#264CBE] hover:text-white">
           Get a Quote now
-        </Link>
+        </QuoteModalButton>
 
         <Link
           href="/corporate-training-pricing"
