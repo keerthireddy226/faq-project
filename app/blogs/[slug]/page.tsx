@@ -161,16 +161,38 @@ export default async function BlogPage({ params }: BlogPageProps) {
               }}
             />
 
-            <div className="hidden lg:block disply-flex gap-2">
-              <TrainingCard />
-              <br />
-              <TrainingCatalogCTA />
-              <br />
-              <CoachingCTA />
-              <SkillMatrixCTA />
-              <br />
-              <BlogTrainingCTA />
-              <br />
+            {/*
+              Right sidebar: the grid stretches this cell to the full height of
+              the left blog content. Each card sits in a slot that is 20% (1/5)
+              of that height, so each card stays sticky (pinned at top 80px) for
+              20% of the article scroll before handing off to the next card.
+            */}
+            <div className="hidden h-full lg:block">
+              <div className="h-[20%]">
+                <div className="sticky top-20">
+                  <TrainingCard />
+                </div>
+              </div>
+              <div className="h-[20%]">
+                <div className="sticky top-20">
+                  <TrainingCatalogCTA />
+                </div>
+              </div>
+              <div className="h-[20%]">
+                <div className="sticky top-20">
+                  <CoachingCTA />
+                </div>
+              </div>
+              <div className="h-[20%]">
+                <div className="sticky top-20">
+                  <SkillMatrixCTA />
+                </div>
+              </div>
+              <div className="h-[20%]">
+                <div className="sticky top-20">
+                  <BlogTrainingCTA />
+                </div>
+              </div>
             </div>
           </div>
 

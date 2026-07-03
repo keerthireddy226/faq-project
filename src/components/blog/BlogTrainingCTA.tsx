@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function BlogTrainingCTA() {
   return (
-    <div className="sticky top-20 z-10 flex flex-col items-center justify-center overflow-hidden rounded-[5px] border border-[#ACC8FF] px-5 pt-6 pb-[240px]">
+    <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-[5px] border border-[#ACC8FF] px-5 pt-6 pb-[240px]">
       {/* Background Image */}
       <img
         src="https://cdn.prod.website-files.com/6482a3cf7db698c2a80cc5e6/6655839414c7d45134aefdb3_Group%201000005623.webp"
