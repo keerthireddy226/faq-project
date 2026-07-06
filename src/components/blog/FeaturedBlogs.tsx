@@ -61,9 +61,7 @@ export default function FeaturedPostSection() {
               >
                 <h3>{post.title}</h3>
               </a>
-              <p className="text-[16px] mt-10 font-medium text-black">
-                {post.date}
-              </p>
+              <p className="text-[16px] mt-10 text-black">{post.date}</p>
             </article>
           ))}
         </div>
