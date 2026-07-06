@@ -39,9 +39,10 @@ export default function LDStrategySection() {
           <div>
             <Image
               src="/eds-banner.svg"
-              alt="L&D strategy"
-              fill
-              className="object-cover"
+              alt=""
+              width={520}
+              height={520}
+              className="absolute right-0 bottom-0 z-0 pointer-events-none"
             />
           </div>
         </div>

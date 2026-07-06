@@ -14,6 +14,7 @@ import CoachingCTA from "@/src/components/blog/CoachingCTA";
 import SkillMatrixCTA from "@/src/components/blog/SkillMatrixCTA";
 import RelatedPost from "@/src/components/blog/RelatedPost";
 import LDStrategySection from "@/src/components/blog/LDStrategySection";
+import FeaturedPostSection from "@/src/components/blog/FeaturedBlogs";
 
 type BlogPageProps = {
   params: Promise<{
@@ -163,35 +164,35 @@ export default async function BlogPage({ params }: BlogPageProps) {
               }}
             />
 
-            <div className="hidden h-full lg:block">
-              <div className="h-[17%]">
+            <div className="hidden h-full lg:block relative ">
+              <div className="h-[16.6%] mb-4">
                 <div className="sticky top-20">
                   <TrainingCard />
                 </div>
               </div>
-              <div className="h-[17%]">
+              <div className="h-[16.6%] mb-4">
                 <div className="sticky top-20">
                   <TrainingCatalogCTA />
                 </div>
               </div>
-              <div className="h-[17%]">
+              <div className="h-[16.6%] mb-4">
                 <div className="sticky top-20">
                   <CoachingCTA />
                 </div>
               </div>
-              <div className="h-[17%]">
+              <div className="h-[16.6%] mb-4">
                 <div className="sticky top-20">
                   <SkillMatrixCTA />
                 </div>
               </div>
-              <div className="h-[17%]">
+              <div className="h-[16.6%] mb-4">
                 <div className="sticky top-20">
                   <BlogTrainingCTA />
                 </div>
-                <div className="h-[17%]">
-                  <div className="sticky top-20">
-                    <RelatedPost />
-                  </div>
+              </div>
+              <div className="h-[16.6%] mb-4">
+                <div className="sticky top-20">
+                  <RelatedPost />
                 </div>
               </div>
             </div>
@@ -199,9 +200,9 @@ export default async function BlogPage({ params }: BlogPageProps) {
           <BlogFaqScript />
         </section>
       )}
-      <section>
-        <LDStrategySection />
-      </section>
+
+      <LDStrategySection />
+      <FeaturedPostSection />
     </>
   );
 }

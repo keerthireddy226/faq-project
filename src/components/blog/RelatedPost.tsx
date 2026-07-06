@@ -7,8 +7,8 @@ export default function RelatedPosts() {
   ];
 
   return (
-    <section className="w-full  px-2 py-0">
-      <h2 className="mb-10 text-2xl font-bold text-[#3b3b3b]">Related Posts</h2>
+    <section className="w-full relative px-2 py-0">
+      <h2 className="mb-4 text-2xl font-bold text-[#3b3b3b]">Related Posts</h2>
 
       <div className="space-y-7">
         {posts.map((post, index) => (
