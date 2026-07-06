@@ -12,6 +12,8 @@ import TrainingCatalogCTA from "@/src/components/blog/TrainingCatalogCTA";
 import BlogTrainingCTA from "@/src/components/blog/BlogTrainingCTA";
 import CoachingCTA from "@/src/components/blog/CoachingCTA";
 import SkillMatrixCTA from "@/src/components/blog/SkillMatrixCTA";
+import RelatedPost from "@/src/components/blog/RelatedPost";
+import LDStrategySection from "@/src/components/blog/LDStrategySection";
 
 type BlogPageProps = {
   params: Promise<{
@@ -161,44 +163,45 @@ export default async function BlogPage({ params }: BlogPageProps) {
               }}
             />
 
-            {/*
-              Right sidebar: the grid stretches this cell to the full height of
-              the left blog content. Each card sits in a slot that is 20% (1/5)
-              of that height, so each card stays sticky (pinned at top 80px) for
-              20% of the article scroll before handing off to the next card.
-            */}
             <div className="hidden h-full lg:block">
-              <div className="h-[20%]">
+              <div className="h-[17%]">
                 <div className="sticky top-20">
                   <TrainingCard />
                 </div>
               </div>
-              <div className="h-[20%]">
+              <div className="h-[17%]">
                 <div className="sticky top-20">
                   <TrainingCatalogCTA />
                 </div>
               </div>
-              <div className="h-[20%]">
+              <div className="h-[17%]">
                 <div className="sticky top-20">
                   <CoachingCTA />
                 </div>
               </div>
-              <div className="h-[20%]">
+              <div className="h-[17%]">
                 <div className="sticky top-20">
                   <SkillMatrixCTA />
                 </div>
               </div>
-              <div className="h-[20%]">
+              <div className="h-[17%]">
                 <div className="sticky top-20">
                   <BlogTrainingCTA />
+                </div>
+                <div className="h-[17%]">
+                  <div className="sticky top-20">
+                    <RelatedPost />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
           <BlogFaqScript />
         </section>
       )}
+      <section>
+        <LDStrategySection />
+      </section>
     </>
   );
 }
