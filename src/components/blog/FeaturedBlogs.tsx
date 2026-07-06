@@ -38,8 +38,8 @@ export default function FeaturedPostSection() {
     <section className="bg-[#f6f9fd] py-20">
       <div className="container">
         <div className="mb-10 flex items-center justify-between">
-          <h2 className="text-[44px] font-bold leading-tight text-black">
-            Featured Post
+          <h2 className="text-[42px] font-semibold leading-tight ">
+            Featured <span className="font-serif italic">Post</span>
           </h2>
 
           <a
@@ -54,15 +54,14 @@ export default function FeaturedPostSection() {
         <div className="grid grid-cols-1 gap-x-20 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, index) => (
             <article key={index} className="border-t border-black/50 pt-9">
-              <p className="mb-3 text-[16px] font-semibold text-black">
-                {post.category}
-              </p>
-
-              <h3 className="mb-18 text-[18px] font-medium leading-[1.35] text-black">
-                {post.title}
-              </h3>
-
-              <p className="text-[16px] font-semibold text-black">
+              <p className="mb-3 text-[16px] text-black">{post.category}</p>
+              <a
+                href=""
+                className="mb-10 text-[18px] font-medium leading-[1.35] text-black hover:text-blue-600 transition-colors duration-300"
+              >
+                <h3>{post.title}</h3>
+              </a>
+              <p className="text-[16px] mt-10 font-medium text-black">
                 {post.date}
               </p>
             </article>

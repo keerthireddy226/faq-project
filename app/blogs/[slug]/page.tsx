@@ -15,6 +15,8 @@ import SkillMatrixCTA from "@/src/components/blog/SkillMatrixCTA";
 import RelatedPost from "@/src/components/blog/RelatedPost";
 import LDStrategySection from "@/src/components/blog/LDStrategySection";
 import FeaturedPostSection from "@/src/components/blog/FeaturedBlogs";
+import FreeTemplatesSection from "@/src/components/blog/FreeTemplatesSection";
+import BlogCategoriesSection from "@/src/components/blog/BlogCategorySection";
 
 type BlogPageProps = {
   params: Promise<{
@@ -129,7 +131,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
                 {updatedOn && (
                   <p className="mt-1 text-sm font-medium">
-                    Updated On {updatedOn}
+                    Updated On {updatedOn?.split("T")[0]}
                   </p>
                 )}
               </div>
@@ -203,6 +205,8 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
       <LDStrategySection />
       <FeaturedPostSection />
+      <FreeTemplatesSection />
+      <BlogCategoriesSection />
     </>
   );
 }

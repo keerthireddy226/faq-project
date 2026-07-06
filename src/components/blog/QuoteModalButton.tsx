@@ -3,11 +3,6 @@
 import { useEffect, useState } from "react";
 import TrainingEnquiryForm from "@/src/components/course/TrainingEnquiryForm";
 
-/**
- * Renders a trigger button that opens the training-enquiry form in a popup.
- * The form is only mounted while the popup is open, so its fixed field IDs
- * (Name-error2, Phone-error2, …) never collide with another instance.
- */
 export default function QuoteModalButton({
   children,
   className,

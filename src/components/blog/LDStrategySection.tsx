@@ -15,7 +15,7 @@ export default function LDStrategySection() {
 
         <div className="relative flex items-center overflow-hidden px-6 py-14 md:px-12 lg:px-16">
           <div className="relative z-10 max-w-[560px]">
-            <h2 className="mb-6 text-[40px] font-bold leading-[1.15] text-[#3d3d3d]">
+            <h2 className="mb-6 text-[42px] font-semibold leading-[1.15] text-[#3d3d3d]">
               Transform Your L&amp;D{" "}
               <span className="font-serif italic font-normal">
                 Strategy Today
