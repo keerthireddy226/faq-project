@@ -4,32 +4,41 @@
 :root {
   --iti-path-flags-1x: url(/intl-tel-input-img/flags.webp);
   --iti-path-flags-2x: url(/intl-tel-input-img/flags@2x.webp);
-  /* fonts */
+
+  /* Fonts */
   --display: var(--font-sora), sans-serif;
   --serif: var(--font-cormorant), "Cormorant Garamond", serif;
   --body: var(--font-dm-sans), "DM Sans", sans-serif;
   --mono: var(--font-dm-mono), "DM Mono", monospace;
-  /* colors */
+
+  /* Colors */
   --navy: #0a1628;
   --navy-soft: #14233d;
   --navy-deep: #050d1a;
+
   --lime: #c8f135;
   --lime-soft: #e4f89a;
+
   --ink: #0a1628;
+
   --paper: #fafaf7;
   --paper-warm: #f2f0e8;
   --paper-cream: #ede9dd;
+
   --white: #ffffff;
+
   --muted: rgba(10, 22, 40, 0.6);
   --muted-soft: rgba(10, 22, 40, 0.45);
+
   --rule: rgba(10, 22, 40, 0.12);
   --rule-strong: rgba(10, 22, 40, 0.22);
+
   --background: #ffffff;
   --foreground: #171717;
 }
 
 @theme inline {
-  /* colors */
+  /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -52,7 +61,7 @@
   --color-rule: var(--rule);
   --color-rule-strong: var(--rule-strong);
 
-  /* fonts */
+  /* Font utilities */
   --font-sans: var(--body);
   --font-display: var(--display);
   --font-serif: var(--serif);
@@ -132,6 +141,7 @@ canvas {
   margin-inline: auto;
   padding-inline: 20px;
 }
+
 .iti {
   width: 100%;
 }
@@ -148,8 +158,6 @@ canvas {
   background: white;
 }
 
-/* Contact form (#form2) phone field must match its sibling inputs, not the
-   taller TrainingForm styling that the generic `.iti input` rule above sets. */
 #form2 .iti input {
   height: 46px;
   border-radius: 3px;

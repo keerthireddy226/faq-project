@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function LDStrategySection() {
   return (
-    <section className="w-full overflow-hidden bg-[#eaf1fb]">
+    <section className="w-full overflow-hidden bg-[#e6edf9]">
       <div className="grid min-h-[520px] grid-cols-1 lg:grid-cols-2">
         <div className="relative min-h-[320px] lg:min-h-[520px]">
           <Image
@@ -15,9 +15,11 @@ export default function LDStrategySection() {
 
         <div className="relative flex items-center overflow-hidden px-6 py-14 md:px-12 lg:px-16">
           <div className="relative z-10 max-w-[560px]">
-            <h2 className="mb-6 text-[36px] font-bold leading-[1.15] text-[#3d3d3d] md:text-[48px]">
-              Transform Your L&amp;D <br className="hidden md:block" />
-              Strategy Today
+            <h2 className="mb-6 text-[40px] font-bold leading-[1.15] text-[#3d3d3d]">
+              Transform Your L&amp;D{" "}
+              <span className="font-serif italic font-normal">
+                Strategy Today
+              </span>
             </h2>
 
             <p className="mb-8 text-[18px] leading-[1.9] text-[#3f3f3f]">
@@ -34,9 +36,14 @@ export default function LDStrategySection() {
             </a>
           </div>
 
-          <div className="pointer-events-none absolute -right-[170px] bottom-[-220px] h-[500px] w-[500px] rounded-full border-[25px] border-[#d7e3fb]" />
-          <div className="pointer-events-none absolute -right-[130px] bottom-[-180px] h-[420px] w-[420px] rounded-full border-[25px] border-[#e1e9f7]" />
-          <div className="pointer-events-none absolute -right-[90px] bottom-[-140px] h-[340px] w-[340px] rounded-full border-[25px] border-[#e8eef8]" />
+          <div>
+            <Image
+              src="/eds-banner.svg"
+              alt="L&D strategy"
+              fill
+              className="object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>
