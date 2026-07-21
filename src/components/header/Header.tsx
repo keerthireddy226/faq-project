@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Search } from "lucide-react";
 
@@ -12,6 +15,8 @@ const navItems = [
 ];
 
 export default function Header() {
+  const [showAiSubmenu, setShowAiSubmenu] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
@@ -61,9 +66,32 @@ export default function Header() {
                   IT & Technical Training (1045+)
                 </a>
 
-                <a href="#" className="block text-gray-600 hover:text-blue-600">
-                  Artificial Intelligence Training (130)
-                </a>
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => setShowAiSubmenu((prev) => !prev)}
+                    className="flex w-full items-center justify-between text-gray-600 hover:text-blue-600"
+                  >
+                    Artificial Intelligence Training (130)
+                    <ChevronDown
+                      size={14}
+                      className={`text-gray-400 transition-transform ${
+                        showAiSubmenu ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {showAiSubmenu && (
+                    <div className="mt-2 ml-3 space-y-2 border-l border-gray-200 pl-3">
+                      <Link
+                        href="/corporate-training/artificial-intelligence/ml-model-monitoring"
+                        className="block text-gray-600 hover:text-blue-600"
+                      >
+                        ML Model Monitoring
+                      </Link>
+                    </div>
+                  )}
+                </div>
 
                 <a href="#" className="block text-gray-600 hover:text-blue-600">
                   Management Skills Training (335+)

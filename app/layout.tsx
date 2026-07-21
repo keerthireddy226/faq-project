@@ -36,6 +36,10 @@ export const metadata: Metadata = {
   },
   description:
     "Corporate training and workforce development solutions by Edstellar.",
+    robots: {
+    index: false,
+    follow: false,
+},
 };
 
 export default function RootLayout({
